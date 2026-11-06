@@ -33,9 +33,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.js
+          git add index.min.js
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "chore: regenerate index.js from Telegram Bot API docs"
+            git commit -m "Update"
             git push
           fi
