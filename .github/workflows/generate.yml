@@ -1,7 +1,7 @@
 name: Generate index.js
 
 on:
-  workflow_dispatch:   # manual run from the Actions tab
+  workflow_dispatch:
   push:
     paths:
       - "generate.js"
