@@ -116,12 +116,13 @@ const fileUrl = (filePath) => \`\${api}/file/bot\${botToken}/\${filePath}\`;
   ];
   const footer = `\n\nmodule.exports = {\n${exportsList.map((n) => `  ${n},`).join("\n")}\n};\n`;
 
-  const full = header + body + footer;
-  fs.writeFileSync(OUT, full);
+  fs.writeFileSync(OUT, header + body + footer);
 
-  const min = full.replace(/\/\*\*[\s\S]*?\*\/\n?/g, "");
+  const minBody = body
+  .replace(/\/\*\*[\s\S]*?\*\/\n?/g, "")
+  .replace(/\n{2,}/g, "\n");
   const minOut = OUT.replace(/\.js$/, ".min.js");
-  fs.writeFileSync(minOut, min);
+  fs.writeFileSync(minOut, header + minBody + footer);
   console.log(`Wrote ${methods.length} methods to ${OUT} & ${minOut}`);
 }
 
