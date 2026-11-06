@@ -1,0 +1,41 @@
+name: Generate index.js
+
+on:
+  workflow_dispatch:   # manual run from the Actions tab
+  push:
+    paths:
+      - "generate.js"
+      - ".github/workflows/generate.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install cheerio
+
+      - name: Generate index.js
+        run: node generate.js index.js
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.js
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: regenerate index.js from Telegram Bot API docs"
+            git push
+          fi
