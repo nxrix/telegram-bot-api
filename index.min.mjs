@@ -1,0 +1,422 @@
+// generated from https://core.telegram.org/bots/api
+
+let botToken = "";
+
+const setBotToken = (token) => {
+  botToken = token;
+};
+
+const getBotToken = () => botToken;
+
+const api = "https://api.telegram.org";
+
+const request = async (token, method, params) => {
+  const res = await fetch(`${api}/bot${token}/${method}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params ?? {}),
+  });
+  return res.json();
+};
+
+const setWebhook = (token, url, extra = {}) => request(token, "setWebhook", { url, ...extra });
+const getWebhook = (token) => request(token, "getWebhookInfo");
+const deleteWebhook = (token, extra = {}) => request(token, "deleteWebhook", extra);
+
+const call = (method, params) => request(botToken, method, params);
+const tg = (method) => (params) => call(method, params);
+
+const fileUrl = (filePath) => `${api}/file/bot${botToken}/${filePath}`;
+
+const getUpdates = tg("getUpdates");
+const getWebhookInfo = tg("getWebhookInfo");
+const getMe = tg("getMe");
+const logOut = tg("logOut");
+const close = tg("close");
+const sendMessage = tg("sendMessage");
+const forwardMessage = tg("forwardMessage");
+const forwardMessages = tg("forwardMessages");
+const copyMessage = tg("copyMessage");
+const copyMessages = tg("copyMessages");
+const sendPhoto = tg("sendPhoto");
+const sendLivePhoto = tg("sendLivePhoto");
+const sendAudio = tg("sendAudio");
+const sendDocument = tg("sendDocument");
+const sendVideo = tg("sendVideo");
+const sendAnimation = tg("sendAnimation");
+const sendVoice = tg("sendVoice");
+const sendVideoNote = tg("sendVideoNote");
+const sendWidget = tg("sendWidget");
+const sendSharedWidget = tg("sendSharedWidget");
+const sendPaidMedia = tg("sendPaidMedia");
+const sendMediaGroup = tg("sendMediaGroup");
+const sendLocation = tg("sendLocation");
+const sendVenue = tg("sendVenue");
+const sendContact = tg("sendContact");
+const sendPoll = tg("sendPoll");
+const sendChecklist = tg("sendChecklist");
+const sendDice = tg("sendDice");
+const sendMessageDraft = tg("sendMessageDraft");
+const sendChatAction = tg("sendChatAction");
+const setMessageReaction = tg("setMessageReaction");
+const getUserProfilePhotos = tg("getUserProfilePhotos");
+const getUserProfileAudios = tg("getUserProfileAudios");
+const setUserEmojiStatus = tg("setUserEmojiStatus");
+const getFile = tg("getFile");
+const banChatMember = tg("banChatMember");
+const unbanChatMember = tg("unbanChatMember");
+const restrictChatMember = tg("restrictChatMember");
+const promoteChatMember = tg("promoteChatMember");
+const setChatAdministratorCustomTitle = tg("setChatAdministratorCustomTitle");
+const setChatMemberTag = tg("setChatMemberTag");
+const banChatSenderChat = tg("banChatSenderChat");
+const unbanChatSenderChat = tg("unbanChatSenderChat");
+const setChatPermissions = tg("setChatPermissions");
+const exportChatInviteLink = tg("exportChatInviteLink");
+const createChatInviteLink = tg("createChatInviteLink");
+const editChatInviteLink = tg("editChatInviteLink");
+const createChatSubscriptionInviteLink = tg("createChatSubscriptionInviteLink");
+const editChatSubscriptionInviteLink = tg("editChatSubscriptionInviteLink");
+const revokeChatInviteLink = tg("revokeChatInviteLink");
+const approveChatJoinRequest = tg("approveChatJoinRequest");
+const declineChatJoinRequest = tg("declineChatJoinRequest");
+const answerChatJoinRequestQuery = tg("answerChatJoinRequestQuery");
+const sendChatJoinRequestWebApp = tg("sendChatJoinRequestWebApp");
+const setChatPhoto = tg("setChatPhoto");
+const deleteChatPhoto = tg("deleteChatPhoto");
+const setChatTitle = tg("setChatTitle");
+const setChatDescription = tg("setChatDescription");
+const pinChatMessage = tg("pinChatMessage");
+const unpinChatMessage = tg("unpinChatMessage");
+const unpinAllChatMessages = tg("unpinAllChatMessages");
+const leaveChat = tg("leaveChat");
+const getChat = tg("getChat");
+const getChatAdministrators = tg("getChatAdministrators");
+const getChatMemberCount = tg("getChatMemberCount");
+const getChatMember = tg("getChatMember");
+const getChatShareThemeBackdrops = tg("getChatShareThemeBackdrops");
+const getUserPersonalChatMessages = tg("getUserPersonalChatMessages");
+const setChatStickerSet = tg("setChatStickerSet");
+const deleteChatStickerSet = tg("deleteChatStickerSet");
+const getForumTopicIconStickers = tg("getForumTopicIconStickers");
+const createForumTopic = tg("createForumTopic");
+const editForumTopic = tg("editForumTopic");
+const closeForumTopic = tg("closeForumTopic");
+const reopenForumTopic = tg("reopenForumTopic");
+const deleteForumTopic = tg("deleteForumTopic");
+const unpinAllForumTopicMessages = tg("unpinAllForumTopicMessages");
+const editGeneralForumTopic = tg("editGeneralForumTopic");
+const closeGeneralForumTopic = tg("closeGeneralForumTopic");
+const reopenGeneralForumTopic = tg("reopenGeneralForumTopic");
+const hideGeneralForumTopic = tg("hideGeneralForumTopic");
+const unhideGeneralForumTopic = tg("unhideGeneralForumTopic");
+const unpinAllGeneralForumTopicMessages = tg("unpinAllGeneralForumTopicMessages");
+const answerCallbackQuery = tg("answerCallbackQuery");
+const answerWidgetQuery = tg("answerWidgetQuery");
+const answerGuestQuery = tg("answerGuestQuery");
+const getUserChatBoosts = tg("getUserChatBoosts");
+const getBusinessConnection = tg("getBusinessConnection");
+const getManagedBotToken = tg("getManagedBotToken");
+const replaceManagedBotToken = tg("replaceManagedBotToken");
+const getManagedBotAccessSettings = tg("getManagedBotAccessSettings");
+const setManagedBotAccessSettings = tg("setManagedBotAccessSettings");
+const setMyCommands = tg("setMyCommands");
+const deleteMyCommands = tg("deleteMyCommands");
+const getMyCommands = tg("getMyCommands");
+const setMyName = tg("setMyName");
+const getMyName = tg("getMyName");
+const setMyDescription = tg("setMyDescription");
+const getMyDescription = tg("getMyDescription");
+const setMyShortDescription = tg("setMyShortDescription");
+const getMyShortDescription = tg("getMyShortDescription");
+const setMyProfilePhoto = tg("setMyProfilePhoto");
+const removeMyProfilePhoto = tg("removeMyProfilePhoto");
+const setChatMenuButton = tg("setChatMenuButton");
+const getChatMenuButton = tg("getChatMenuButton");
+const setMyDefaultAdministratorRights = tg("setMyDefaultAdministratorRights");
+const getMyDefaultAdministratorRights = tg("getMyDefaultAdministratorRights");
+const getAvailableGifts = tg("getAvailableGifts");
+const sendGift = tg("sendGift");
+const giftPremiumSubscription = tg("giftPremiumSubscription");
+const verifyUser = tg("verifyUser");
+const verifyChat = tg("verifyChat");
+const removeUserVerification = tg("removeUserVerification");
+const removeChatVerification = tg("removeChatVerification");
+const readBusinessMessage = tg("readBusinessMessage");
+const deleteBusinessMessages = tg("deleteBusinessMessages");
+const setBusinessAccountName = tg("setBusinessAccountName");
+const setBusinessAccountUsername = tg("setBusinessAccountUsername");
+const setBusinessAccountBio = tg("setBusinessAccountBio");
+const setBusinessAccountProfilePhoto = tg("setBusinessAccountProfilePhoto");
+const removeBusinessAccountProfilePhoto = tg("removeBusinessAccountProfilePhoto");
+const setBusinessAccountGiftSettings = tg("setBusinessAccountGiftSettings");
+const getBusinessAccountStarBalance = tg("getBusinessAccountStarBalance");
+const transferBusinessAccountStars = tg("transferBusinessAccountStars");
+const getBusinessAccountGifts = tg("getBusinessAccountGifts");
+const getUserGifts = tg("getUserGifts");
+const getChatGifts = tg("getChatGifts");
+const getUniqueGift = tg("getUniqueGift");
+const convertGiftToStars = tg("convertGiftToStars");
+const upgradeGift = tg("upgradeGift");
+const transferGift = tg("transferGift");
+const deleteBusinessAccountGift = tg("deleteBusinessAccountGift");
+const postStory = tg("postStory");
+const repostStory = tg("repostStory");
+const editStory = tg("editStory");
+const deleteStory = tg("deleteStory");
+const answerWebAppQuery = tg("answerWebAppQuery");
+const savePreparedInlineMessage = tg("savePreparedInlineMessage");
+const savePreparedKeyboardButton = tg("savePreparedKeyboardButton");
+const editMessageText = tg("editMessageText");
+const editMessageCaption = tg("editMessageCaption");
+const editMessageMedia = tg("editMessageMedia");
+const editMessageLiveLocation = tg("editMessageLiveLocation");
+const stopMessageLiveLocation = tg("stopMessageLiveLocation");
+const editMessageChecklist = tg("editMessageChecklist");
+const editMessageWidgetData = tg("editMessageWidgetData");
+const editSharedWidgetData = tg("editSharedWidgetData");
+const editMessageReplyMarkup = tg("editMessageReplyMarkup");
+const stopPoll = tg("stopPoll");
+const editEphemeralMessageText = tg("editEphemeralMessageText");
+const editEphemeralMessageMedia = tg("editEphemeralMessageMedia");
+const editEphemeralMessageCaption = tg("editEphemeralMessageCaption");
+const editEphemeralMessageReplyMarkup = tg("editEphemeralMessageReplyMarkup");
+const approveSuggestedPost = tg("approveSuggestedPost");
+const declineSuggestedPost = tg("declineSuggestedPost");
+const deleteMessage = tg("deleteMessage");
+const deleteMessages = tg("deleteMessages");
+const deleteEphemeralMessage = tg("deleteEphemeralMessage");
+const deleteMessageReaction = tg("deleteMessageReaction");
+const deleteAllMessageReactions = tg("deleteAllMessageReactions");
+const sendSticker = tg("sendSticker");
+const getStickerSet = tg("getStickerSet");
+const getCustomEmojiStickers = tg("getCustomEmojiStickers");
+const uploadStickerFile = tg("uploadStickerFile");
+const createNewStickerSet = tg("createNewStickerSet");
+const addStickerToSet = tg("addStickerToSet");
+const setStickerPositionInSet = tg("setStickerPositionInSet");
+const deleteStickerFromSet = tg("deleteStickerFromSet");
+const replaceStickerInSet = tg("replaceStickerInSet");
+const setStickerEmojiList = tg("setStickerEmojiList");
+const setStickerKeywords = tg("setStickerKeywords");
+const setStickerMaskPosition = tg("setStickerMaskPosition");
+const setStickerSetTitle = tg("setStickerSetTitle");
+const setStickerSetThumbnail = tg("setStickerSetThumbnail");
+const setCustomEmojiStickerSetThumbnail = tg("setCustomEmojiStickerSetThumbnail");
+const deleteStickerSet = tg("deleteStickerSet");
+const sendRichMessage = tg("sendRichMessage");
+const sendRichMessageDraft = tg("sendRichMessageDraft");
+const answerInlineQuery = tg("answerInlineQuery");
+const sendInvoice = tg("sendInvoice");
+const createInvoiceLink = tg("createInvoiceLink");
+const answerShippingQuery = tg("answerShippingQuery");
+const answerPreCheckoutQuery = tg("answerPreCheckoutQuery");
+const getMyStarBalance = tg("getMyStarBalance");
+const getStarTransactions = tg("getStarTransactions");
+const refundStarPayment = tg("refundStarPayment");
+const editUserStarSubscription = tg("editUserStarSubscription");
+const setPassportDataErrors = tg("setPassportDataErrors");
+const sendGame = tg("sendGame");
+const setGameScore = tg("setGameScore");
+const getGameHighScores = tg("getGameHighScores");
+
+export {
+  setBotToken,
+  getBotToken,
+  setWebhook,
+  getWebhook,
+  deleteWebhook,
+  call,
+  fileUrl,
+  getUpdates,
+  getWebhookInfo,
+  getMe,
+  logOut,
+  close,
+  sendMessage,
+  forwardMessage,
+  forwardMessages,
+  copyMessage,
+  copyMessages,
+  sendPhoto,
+  sendLivePhoto,
+  sendAudio,
+  sendDocument,
+  sendVideo,
+  sendAnimation,
+  sendVoice,
+  sendVideoNote,
+  sendWidget,
+  sendSharedWidget,
+  sendPaidMedia,
+  sendMediaGroup,
+  sendLocation,
+  sendVenue,
+  sendContact,
+  sendPoll,
+  sendChecklist,
+  sendDice,
+  sendMessageDraft,
+  sendChatAction,
+  setMessageReaction,
+  getUserProfilePhotos,
+  getUserProfileAudios,
+  setUserEmojiStatus,
+  getFile,
+  banChatMember,
+  unbanChatMember,
+  restrictChatMember,
+  promoteChatMember,
+  setChatAdministratorCustomTitle,
+  setChatMemberTag,
+  banChatSenderChat,
+  unbanChatSenderChat,
+  setChatPermissions,
+  exportChatInviteLink,
+  createChatInviteLink,
+  editChatInviteLink,
+  createChatSubscriptionInviteLink,
+  editChatSubscriptionInviteLink,
+  revokeChatInviteLink,
+  approveChatJoinRequest,
+  declineChatJoinRequest,
+  answerChatJoinRequestQuery,
+  sendChatJoinRequestWebApp,
+  setChatPhoto,
+  deleteChatPhoto,
+  setChatTitle,
+  setChatDescription,
+  pinChatMessage,
+  unpinChatMessage,
+  unpinAllChatMessages,
+  leaveChat,
+  getChat,
+  getChatAdministrators,
+  getChatMemberCount,
+  getChatMember,
+  getChatShareThemeBackdrops,
+  getUserPersonalChatMessages,
+  setChatStickerSet,
+  deleteChatStickerSet,
+  getForumTopicIconStickers,
+  createForumTopic,
+  editForumTopic,
+  closeForumTopic,
+  reopenForumTopic,
+  deleteForumTopic,
+  unpinAllForumTopicMessages,
+  editGeneralForumTopic,
+  closeGeneralForumTopic,
+  reopenGeneralForumTopic,
+  hideGeneralForumTopic,
+  unhideGeneralForumTopic,
+  unpinAllGeneralForumTopicMessages,
+  answerCallbackQuery,
+  answerWidgetQuery,
+  answerGuestQuery,
+  getUserChatBoosts,
+  getBusinessConnection,
+  getManagedBotToken,
+  replaceManagedBotToken,
+  getManagedBotAccessSettings,
+  setManagedBotAccessSettings,
+  setMyCommands,
+  deleteMyCommands,
+  getMyCommands,
+  setMyName,
+  getMyName,
+  setMyDescription,
+  getMyDescription,
+  setMyShortDescription,
+  getMyShortDescription,
+  setMyProfilePhoto,
+  removeMyProfilePhoto,
+  setChatMenuButton,
+  getChatMenuButton,
+  setMyDefaultAdministratorRights,
+  getMyDefaultAdministratorRights,
+  getAvailableGifts,
+  sendGift,
+  giftPremiumSubscription,
+  verifyUser,
+  verifyChat,
+  removeUserVerification,
+  removeChatVerification,
+  readBusinessMessage,
+  deleteBusinessMessages,
+  setBusinessAccountName,
+  setBusinessAccountUsername,
+  setBusinessAccountBio,
+  setBusinessAccountProfilePhoto,
+  removeBusinessAccountProfilePhoto,
+  setBusinessAccountGiftSettings,
+  getBusinessAccountStarBalance,
+  transferBusinessAccountStars,
+  getBusinessAccountGifts,
+  getUserGifts,
+  getChatGifts,
+  getUniqueGift,
+  convertGiftToStars,
+  upgradeGift,
+  transferGift,
+  deleteBusinessAccountGift,
+  postStory,
+  repostStory,
+  editStory,
+  deleteStory,
+  answerWebAppQuery,
+  savePreparedInlineMessage,
+  savePreparedKeyboardButton,
+  editMessageText,
+  editMessageCaption,
+  editMessageMedia,
+  editMessageLiveLocation,
+  stopMessageLiveLocation,
+  editMessageChecklist,
+  editMessageWidgetData,
+  editSharedWidgetData,
+  editMessageReplyMarkup,
+  stopPoll,
+  editEphemeralMessageText,
+  editEphemeralMessageMedia,
+  editEphemeralMessageCaption,
+  editEphemeralMessageReplyMarkup,
+  approveSuggestedPost,
+  declineSuggestedPost,
+  deleteMessage,
+  deleteMessages,
+  deleteEphemeralMessage,
+  deleteMessageReaction,
+  deleteAllMessageReactions,
+  sendSticker,
+  getStickerSet,
+  getCustomEmojiStickers,
+  uploadStickerFile,
+  createNewStickerSet,
+  addStickerToSet,
+  setStickerPositionInSet,
+  deleteStickerFromSet,
+  replaceStickerInSet,
+  setStickerEmojiList,
+  setStickerKeywords,
+  setStickerMaskPosition,
+  setStickerSetTitle,
+  setStickerSetThumbnail,
+  setCustomEmojiStickerSetThumbnail,
+  deleteStickerSet,
+  sendRichMessage,
+  sendRichMessageDraft,
+  answerInlineQuery,
+  sendInvoice,
+  createInvoiceLink,
+  answerShippingQuery,
+  answerPreCheckoutQuery,
+  getMyStarBalance,
+  getStarTransactions,
+  refundStarPayment,
+  editUserStarSubscription,
+  setPassportDataErrors,
+  sendGame,
+  setGameScore,
+  getGameHighScores,
+};
