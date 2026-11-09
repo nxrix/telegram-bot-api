@@ -114,16 +114,28 @@ const fileUrl = (filePath) => \`\${api}/file/bot\${botToken}/\${filePath}\`;
     "setBotToken", "getBotToken", "setWebhook", "getWebhook", "deleteWebhook", "call", "fileUrl",
     ...methods.map((m) => m.name),
   ];
-  const footer = `\n\nmodule.exports = {\n${exportsList.map((n) => `  ${n},`).join("\n")}\n};\n`;
-
-  fs.writeFileSync(OUT, header + body + footer);
+  const list = exportsList.map((n) => `  ${n},`).join("\n");
+  const cjsFooter = `\n\nmodule.exports = {\n${list}\n};\n`;
+  const esmFooter = `\n\nexport {\n${list}\n};\n`;
 
   const minBody = body
-  .replace(/\/\*\*[\s\S]*?\*\/\n?/g, "")
-  .replace(/\n{2,}/g, "\n");
-  const minOut = OUT.replace(/\.js$/, ".min.js");
-  fs.writeFileSync(minOut, header + minBody + footer);
-  console.log(`Wrote ${methods.length} methods to ${OUT} & ${minOut}`);
+    .replace(/\/\*\*[\s\S]*?\*\/\n?/g, "")
+    .replace(/\n{2,}/g, "\n");
+
+  const globalOut =
+    `(function (root) {\n${header}${minBody}\n\nroot.TelegramBotAPI = {\n${list}\n};\n` +
+    `})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this);\n`;
+
+  const base = OUT.replace(/\.js$/, "");
+  const files = {
+    [`${base}.js`]: header + body + cjsFooter,
+    [`${base}.min.js`]: header + minBody + cjsFooter,
+    [`${base}.mjs`]: header + body + esmFooter,
+    [`${base}.min.mjs`]: header + minBody + esmFooter,
+    [`${base}.global.js`]: globalOut,
+  };
+  for (const [file, content] of Object.entries(files)) fs.writeFileSync(file, content);
+  console.log(`Wrote ${methods.length} methods to ${Object.keys(files).join(", ")}`);
 }
 
 main().catch((e) => {
