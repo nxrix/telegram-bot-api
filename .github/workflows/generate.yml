@@ -1,4 +1,4 @@
-name: Generate index.js
+name: Generate
 
 on:
   workflow_dispatch:
@@ -25,10 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm install --no-save cheerio
 
-      - name: Generate builds
+      - name: Generate
         run: node generate.js
 
-      - name: Commit and push if changed
+      - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
