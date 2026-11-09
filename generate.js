@@ -1,8 +1,9 @@
 const fs = require("fs");
+const path = require("path");
 const cheerio = require("cheerio");
 
 const DOC_URL = "https://core.telegram.org/bots/api";
-const OUT = process.argv[2] || "index.js";
+const OUT = process.argv[2] || "dist";
 const SRC = process.argv[3];
 
 const clean = (s) => s.replace(/\s+/g, " ").trim();
@@ -126,16 +127,18 @@ const fileUrl = (filePath) => \`\${api}/file/bot\${botToken}/\${filePath}\`;
     `(function (root) {\n${header}${minBody}\n\nroot.TelegramBotAPI = {\n${list}\n};\n` +
     `})(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : this);\n`;
 
-  const base = OUT.replace(/\.js$/, "");
   const files = {
-    [`${base}.js`]: header + body + cjsFooter,
-    [`${base}.min.js`]: header + minBody + cjsFooter,
-    [`${base}.mjs`]: header + body + esmFooter,
-    [`${base}.min.mjs`]: header + minBody + esmFooter,
-    [`${base}.global.js`]: globalOut,
+    "index.js": header + body + cjsFooter,
+    "index.min.js": header + minBody + cjsFooter,
+    "index.mjs": header + body + esmFooter,
+    "index.min.mjs": header + minBody + esmFooter,
+    "index.global.js": globalOut,
   };
-  for (const [file, content] of Object.entries(files)) fs.writeFileSync(file, content);
-  console.log(`Wrote ${methods.length} methods to ${Object.keys(files).join(", ")}`);
+  fs.mkdirSync(OUT, { recursive: true });
+  for (const [name, content] of Object.entries(files)) {
+    fs.writeFileSync(path.join(OUT, name), content);
+  }
+  console.log(`Wrote ${methods.length} methods to ${Object.keys(files).map((n) => path.join(DIR, n)).join(", ")}`);
 }
 
 main().catch((e) => {
