@@ -26,13 +26,13 @@ jobs:
         run: npm install --no-save cheerio
 
       - name: Generate builds
-        run: node generate.js index.js
+        run: node generate.js dist/index.js
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.js index.min.js index.mjs index.min.mjs index.global.js
+          git add dist
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
