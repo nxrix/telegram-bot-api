@@ -62,7 +62,7 @@ const close = tg("close");
  * Use this method to send text messages. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -83,10 +83,10 @@ const sendMessage = tg("sendMessage");
 /**
  * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent Message is returned.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat
- * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format @username)
+ * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format @username)
  * @param {number} [params.video_start_timestamp] - New start timestamp for the forwarded video in the message
  * @param {boolean} [params.disable_notification] - Sends the message silently. Users will receive a notification with no sound.
  * @param {boolean} [params.protect_content] - Protects the contents of the forwarded message from forwarding and saving
@@ -99,10 +99,10 @@ const forwardMessage = tg("forwardMessage");
 /**
  * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of MessageId of the sent messages is returned.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
- * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format @username)
+ * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format @username)
  * @param {number[]} params.message_ids - A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to forward. The identifiers must be specified in a strictly increasing order.
  * @param {boolean} [params.disable_notification] - Sends the messages silently. Users will receive a notification with no sound.
  * @param {boolean} [params.protect_content] - Protects the contents of the forwarded messages from forwarding and saving
@@ -110,12 +110,12 @@ const forwardMessage = tg("forwardMessage");
 const forwardMessages = tg("forwardMessages");
 
 /**
- * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
+ * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, invoice messages, and widget messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the MessageId of the sent message on success.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
- * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format @username)
+ * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format @username)
  * @param {number} params.message_id - Message identifier in the chat specified in from_chat_id
  * @param {number} [params.video_start_timestamp] - New start timestamp for the copied video in the message
  * @param {string} [params.caption] - New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.
@@ -133,12 +133,12 @@ const forwardMessages = tg("forwardMessages");
 const copyMessage = tg("copyMessage");
 
 /**
- * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
+ * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, invoice messages, and widget messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of MessageId of the sent messages is returned.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
- * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format @username)
+ * @param {number|string} params.from_chat_id - Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format @username)
  * @param {number[]} params.message_ids - A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to copy. The identifiers must be specified in a strictly increasing order.
  * @param {boolean} [params.disable_notification] - Sends the messages silently. Users will receive a notification with no sound.
  * @param {boolean} [params.protect_content] - Protects the contents of the sent messages from forwarding and saving
@@ -150,7 +150,7 @@ const copyMessages = tg("copyMessages");
  * Use this method to send photos. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -174,7 +174,7 @@ const sendPhoto = tg("sendPhoto");
  * Use this method to send live photos. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -199,7 +199,7 @@ const sendLivePhoto = tg("sendLivePhoto");
  * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -225,7 +225,7 @@ const sendAudio = tg("sendAudio");
  * Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -249,7 +249,7 @@ const sendDocument = tg("sendDocument");
  * Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -280,7 +280,7 @@ const sendVideo = tg("sendVideo");
  * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -308,7 +308,7 @@ const sendAnimation = tg("sendAnimation");
  * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -331,7 +331,7 @@ const sendVoice = tg("sendVoice");
  * Use this method to send a rounded square MPEG4 video of up to 1 minute long. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -350,10 +350,55 @@ const sendVoice = tg("sendVoice");
 const sendVideoNote = tg("sendVideoNote");
 
 /**
+ * Use this method to send a message with an HTML widget. Currently, in the production environment, widgets can be sent only to private chats, and sent widgets automatically have protected content and therefore can't be forwarded. On success, the sent Message is returned.
+ * @param {Object} params
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target supergroup in the format @username
+ * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+ * @param {string} params.html - HTML code of the widget, 1-32768 bytes. The code must not exceed 4096 bytes when compressed by zlib with the maximum compression level.
+ * @param {number} [params.width] - Width of the widget in logical pixels; omit if the widget must occupy the whole width of the message bubble. The width is clamped by the app to the range from 200 to the maximum width of the message bubble.
+ * @param {number} [params.height] - Height of the widget in logical pixels; omit if the height of the widget isn't fixed. The height is clamped by the app to the range 50-600.
+ * @param {string} [params.public_data] - Public data of the widget, 0-1024 bytes, which will be available wherever the widget is shown. If the widget is shared, then all messages with it will have the same public data.
+ * @param {string} [params.chat_data] - Data of the widget, which is specific to the message, 0-1024 bytes
+ * @param {string} [params.caption] - Widget caption, 0-1024 characters after entities parsing
+ * @param {string} [params.parse_mode] - Mode for parsing entities in the widget caption. See formatting options for more details.
+ * @param {MessageEntity[]} [params.caption_entities] - A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+ * @param {boolean} [params.show_caption_above_media] - Pass True if the caption must be shown above the widget
+ * @param {boolean} [params.allow_queries] - Pass True to allow the widget to send queries to the bot
+ * @param {boolean} [params.is_shared] - Pass True to create a shared widget, which can be sent again using the method sendSharedWidget
+ * @param {boolean} [params.disable_notification] - Sends the message silently. Users will receive a notification with no sound.
+ * @param {boolean} [params.protect_content] - Protects the contents of the sent message from forwarding and saving
+ * @param {boolean} [params.allow_paid_broadcast] - Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+ * @param {string} [params.message_effect_id] - Unique identifier of the message effect to be added to the message; for private chats only
+ * @param {ReplyParameters} [params.reply_parameters] - Description of the message to reply to
+ * @param {InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply} [params.reply_markup] - Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
+ */
+const sendWidget = tg("sendWidget");
+
+/**
+ * Use this method to send again a shared widget created by the bot. Currently, in the production environment, widgets can be sent only to private chats, and sent widgets automatically have protected content and therefore can't be forwarded. On success, the sent Message is returned.
+ * @param {Object} params
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target supergroup in the format @username
+ * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+ * @param {string} params.widget_id - Unique identifier of the shared widget
+ * @param {string} [params.chat_data] - Data of the widget, which is specific to the message, 0-1024 bytes
+ * @param {string} [params.caption] - Widget caption, 0-1024 characters after entities parsing
+ * @param {string} [params.parse_mode] - Mode for parsing entities in the widget caption. See formatting options for more details.
+ * @param {MessageEntity[]} [params.caption_entities] - A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+ * @param {boolean} [params.show_caption_above_media] - Pass True if the caption must be shown above the widget
+ * @param {boolean} [params.disable_notification] - Sends the message silently. Users will receive a notification with no sound.
+ * @param {boolean} [params.protect_content] - Protects the contents of the sent message from forwarding and saving
+ * @param {boolean} [params.allow_paid_broadcast] - Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+ * @param {string} [params.message_effect_id] - Unique identifier of the message effect to be added to the message; for private chats only
+ * @param {ReplyParameters} [params.reply_parameters] - Description of the message to reply to
+ * @param {InlineKeyboardMarkup|ReplyKeyboardMarkup|ReplyKeyboardRemove|ForceReply} [params.reply_markup] - Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.
+ */
+const sendSharedWidget = tg("sendSharedWidget");
+
+/**
  * Use this method to send paid media. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {number} params.star_count - The number of Telegram Stars that must be paid to buy access to the media; 1-25000
@@ -376,7 +421,7 @@ const sendPaidMedia = tg("sendPaidMedia");
  * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of Message objects that were sent is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
  * @param {InputMediaAudio, InputMediaDocument, InputMediaLivePhoto, InputMediaPhoto and InputMediaVideo[]} params.media - A JSON-serialized Array describing messages to be sent, must include 2-10 items
@@ -392,7 +437,7 @@ const sendMediaGroup = tg("sendMediaGroup");
  * Use this method to send point on the map. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -416,7 +461,7 @@ const sendLocation = tg("sendLocation");
  * Use this method to send information about a venue. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -442,7 +487,7 @@ const sendVenue = tg("sendVenue");
  * Use this method to send phone contacts. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -464,7 +509,7 @@ const sendContact = tg("sendContact");
  * Use this method to send a native poll. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Polls can't be sent to channel direct messages chats.
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username. Polls can't be sent to channel direct messages chats.
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {string} params.question - Poll question, 1-300 characters
  * @param {string} [params.question_parse_mode] - Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed.
@@ -518,7 +563,7 @@ const sendChecklist = tg("sendChecklist");
  * Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {string} [params.emoji] - Emoji on which the dice throw animation is based. Currently, must be one of “”, “”, “”, “”, “”, or “”. Dice can have values 1-6 for “”, “” and “”, values 1-5 for “” and “”, and values 1-64 for “”. Defaults to “”.
@@ -559,7 +604,7 @@ const sendChatAction = tg("sendChatAction");
 /**
  * Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns True on success.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} params.message_id - Identifier of the target message. If the message belongs to a media group, the reaction is set to the first non-deleted message in the group instead.
  * @param {ReactionType[]} [params.reaction] - A JSON-serialized list of reaction types to set on the message. Currently, as non-premium users, bots can set up to one reaction per message. A custom emoji reaction can be used if it is either already present on the message or explicitly allowed by chat administrators. Paid reactions can't be used by bots.
  * @param {boolean} [params.is_big] - Pass True to set the reaction with a big animation
@@ -883,6 +928,11 @@ const getChatMemberCount = tg("getChatMemberCount");
 const getChatMember = tg("getChatMember");
 
 /**
+ * Use this method to get the list of backdrops, which can be used as the background of a theme of the screen for sharing a link to a user or a chat. Requires no parameters. Returns a ChatShareThemeBackdrops object.
+ */
+const getChatShareThemeBackdrops = tg("getChatShareThemeBackdrops");
+
+/**
  * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of Message objects is returned.
  * @param {Object} params
  * @param {number} params.user_id - Unique identifier for the target user
@@ -911,7 +961,7 @@ const deleteChatStickerSet = tg("deleteChatStickerSet");
 const getForumTopicIconStickers = tg("getForumTopicIconStickers");
 
 /**
- * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right. Returns information about the created topic as a ForumTopic object.
+ * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right. In the case of a private chat, a link to the topic can be created in the format https://t.me/<bot_username>/<message_thread_id>; the link opens the topic only for the user. Returns information about the created topic as a ForumTopic object.
  * @param {Object} params
  * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target supergroup in the format @username
  * @param {string} params.name - Topic name, 1-128 characters
@@ -1015,6 +1065,14 @@ const unpinAllGeneralForumTopicMessages = tg("unpinAllGeneralForumTopicMessages"
  * @param {number} [params.cache_time] - The maximum amount of time in seconds that the result of the callback query may be cached client-side. Defaults to 0.
  */
 const answerCallbackQuery = tg("answerCallbackQuery");
+
+/**
+ * Use this method to send an answer to a query from a widget. The query must be answered within 15 seconds. The answer is received only by the widget that sent the query and doesn't change data of the widget; use editMessageWidgetData or editSharedWidgetData to change it. On success, True is returned.
+ * @param {Object} params
+ * @param {string} params.widget_query_id - Unique identifier for the query to be answered
+ * @param {string} [params.data] - Data to be returned to the widget, 0-1024 bytes
+ */
+const answerWidgetQuery = tg("answerWidgetQuery");
 
 /**
  * Use this method to reply to a received guest message. On success, a SentGuestMessage object is returned.
@@ -1190,7 +1248,7 @@ const getAvailableGifts = tg("getAvailableGifts");
  * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns True on success.
  * @param {Object} params
  * @param {number} [params.user_id] - Required if chat_id is not specified. Unique identifier of the target user who will receive the gift.
- * @param {number|string} [params.chat_id] - Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format @username) that will receive the gift.
+ * @param {number|string} [params.chat_id] - Required if user_id is not specified. Unique identifier for the chat that will receive the gift or username of the channel in the format @username.
  * @param {string} params.gift_id - Identifier of the gift; limited gifts can't be sent to channel chats
  * @param {boolean} [params.pay_for_upgrade] - Pass True to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
  * @param {string} [params.text] - Text that will be shown along with the gift; 0-128 characters
@@ -1216,14 +1274,18 @@ const giftPremiumSubscription = tg("giftPremiumSubscription");
  * @param {Object} params
  * @param {number} params.user_id - Unique identifier of the target user
  * @param {string} [params.custom_description] - Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+ * @param {string} [params.custom_description_parse_mode] - Mode for parsing entities in the custom description. See formatting options for more details. Only “text_link” entities are supported.
+ * @param {MessageEntity[]} [params.custom_description_entities] - A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of custom_description_parse_mode. Only “text_link” entities are supported.
  */
 const verifyUser = tg("verifyUser");
 
 /**
  * Verifies a chat on behalf of the organization which is represented by the bot. Returns True on success.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username. Channel direct messages chats can't be verified.
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username. Channel direct messages chats can't be verified.
  * @param {string} [params.custom_description] - Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+ * @param {string} [params.custom_description_parse_mode] - Mode for parsing entities in the custom description. See formatting options for more details. Only “text_link” entities are supported.
+ * @param {MessageEntity[]} [params.custom_description_entities] - A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of custom_description_parse_mode. Only “text_link” entities are supported.
  */
 const verifyChat = tg("verifyChat");
 
@@ -1374,6 +1436,13 @@ const getUserGifts = tg("getUserGifts");
 const getChatGifts = tg("getChatGifts");
 
 /**
+ * Use this method to get information about a unique gift by its name. Returns a UniqueGift object on success.
+ * @param {Object} params
+ * @param {string} params.name - Unique name of the gift
+ */
+const getUniqueGift = tg("getUniqueGift");
+
+/**
  * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right. Returns True on success.
  * @param {Object} params
  * @param {string} params.business_connection_id - Unique identifier of the business connection
@@ -1400,6 +1469,14 @@ const upgradeGift = tg("upgradeGift");
  * @param {number} [params.star_count] - The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the can_transfer_stars business bot right is required.
  */
 const transferGift = tg("transferGift");
+
+/**
+ * Deletes a regular gift owned by a managed business account without receiving Telegram Stars for it. Requires the can_convert_gifts_to_stars business bot right. The gift can be deleted only if it isn't limited (the field total_count of the Gift is omitted) and wasn't refunded. Returns True on success.
+ * @param {Object} params
+ * @param {string} params.business_connection_id - Unique identifier of the business connection
+ * @param {string} params.owned_gift_id - Unique identifier of the regular gift that should be deleted
+ */
+const deleteBusinessAccountGift = tg("deleteBusinessAccountGift");
 
 /**
  * Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns Story on success.
@@ -1481,7 +1558,7 @@ const savePreparedKeyboardButton = tg("savePreparedKeyboardButton");
  * Use this method to edit text, rich and game messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
+ * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username.
  * @param {number} [params.message_id] - Required if inline_message_id is not specified. Identifier of the message to edit.
  * @param {string} [params.inline_message_id] - Required if chat_id and message_id are not specified. Identifier of the inline message.
  * @param {string} [params.text] - New text of the message, 1-4096 characters after entity parsing; required if rich_message isn't specified
@@ -1497,7 +1574,7 @@ const editMessageText = tg("editMessageText");
  * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
+ * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username.
  * @param {number} [params.message_id] - Required if inline_message_id is not specified. Identifier of the message to edit.
  * @param {string} [params.inline_message_id] - Required if chat_id and message_id are not specified. Identifier of the inline message.
  * @param {string} [params.caption] - New caption of the message, 0-1024 characters after entities parsing
@@ -1512,7 +1589,7 @@ const editMessageCaption = tg("editMessageCaption");
  * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to replace a text or a rich message with a media. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
+ * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username.
  * @param {number} [params.message_id] - Required if inline_message_id is not specified. Identifier of the message to edit.
  * @param {string} [params.inline_message_id] - Required if chat_id and message_id are not specified. Identifier of the inline message.
  * @param {InputMedia} params.media - A JSON-serialized object for the new media content of the message
@@ -1524,7 +1601,7 @@ const editMessageMedia = tg("editMessageMedia");
  * Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
+ * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username.
  * @param {number} [params.message_id] - Required if inline_message_id is not specified. Identifier of the message to edit.
  * @param {string} [params.inline_message_id] - Required if chat_id and message_id are not specified. Identifier of the inline message.
  * @param {number} params.latitude - Latitude of new location
@@ -1541,7 +1618,7 @@ const editMessageLiveLocation = tg("editMessageLiveLocation");
  * Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited Message is returned, otherwise True is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
+ * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username.
  * @param {number} [params.message_id] - Required if inline_message_id is not specified. Identifier of the message with live location to stop.
  * @param {string} [params.inline_message_id] - Required if chat_id and message_id are not specified. Identifier of the inline message.
  * @param {InlineKeyboardMarkup} [params.reply_markup] - A JSON-serialized object for a new inline keyboard
@@ -1560,10 +1637,30 @@ const stopMessageLiveLocation = tg("stopMessageLiveLocation");
 const editMessageChecklist = tg("editMessageChecklist");
 
 /**
+ * Use this method to edit data of a widget in a message sent by the bot or via the bot (for inline bots). Public data of a shared widget can be changed at most once per second. On success, True is returned.
+ * @param {Object} params
+ * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target supergroup in the format @username.
+ * @param {number} [params.message_id] - Required if inline_message_id is not specified. Identifier of the message with the widget.
+ * @param {string} [params.inline_message_id] - Required if chat_id and message_id are not specified. Identifier of the inline message.
+ * @param {string} [params.public_data] - New public data of the widget, 0-1024 bytes; pass an empty string to remove the public data. If omitted, then the public data isn't changed.
+ * @param {string} [params.chat_data] - New data of the widget, which is specific to the message, 0-1024 bytes; pass an empty string to remove the data. If omitted, then the data isn't changed.
+ */
+const editMessageWidgetData = tg("editMessageWidgetData");
+
+/**
+ * Use this method to edit public data of a shared widget created by the bot. A shared widget can be edited at most once per second. On success, True is returned.
+ * @param {Object} params
+ * @param {string} params.widget_id - Unique identifier of the shared widget
+ * @param {string} params.public_data - New public data of the widget, 0-1024 bytes; pass an empty string to remove the public data
+ * @param {number} [params.cache_time] - The maximum amount of time in seconds that the public data of the widget may be cached client-side; 5-3600. If omitted, then the current value is kept, which is 30 by default.
+ */
+const editSharedWidgetData = tg("editSharedWidgetData");
+
+/**
  * Use this method to edit only the reply markup of messages. On success, if the edited message is not an inline message, the edited Message is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username.
+ * @param {number|string} [params.chat_id] - Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username.
  * @param {number} [params.message_id] - Required if inline_message_id is not specified. Identifier of the message to edit.
  * @param {string} [params.inline_message_id] - Required if chat_id and message_id are not specified. Identifier of the inline message.
  * @param {InlineKeyboardMarkup} [params.reply_markup] - A JSON-serialized object for an inline keyboard
@@ -1574,7 +1671,7 @@ const editMessageReplyMarkup = tg("editMessageReplyMarkup");
  * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message to be edited was sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} params.message_id - Identifier of the original message with the poll
  * @param {InlineKeyboardMarkup} [params.reply_markup] - A JSON-serialized object for a new message inline keyboard
  */
@@ -1651,7 +1748,7 @@ const declineSuggestedPost = tg("declineSuggestedPost");
 /**
  * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there.- If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat.Returns True on success.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} params.message_id - Identifier of the message to delete
  */
 const deleteMessage = tg("deleteMessage");
@@ -1659,7 +1756,7 @@ const deleteMessage = tg("deleteMessage");
 /**
  * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns True on success.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number[]} params.message_ids - A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted.
  */
 const deleteMessages = tg("deleteMessages");
@@ -1696,7 +1793,7 @@ const deleteAllMessageReactions = tg("deleteAllMessageReactions");
  * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -1842,7 +1939,7 @@ const deleteStickerSet = tg("deleteStickerSet");
  * Use this method to send rich messages. If the message contains a block with a media element, then the bot must have the right to send the media to the chat. On success, the sent Message is returned.
  * @param {Object} params
  * @param {string} [params.business_connection_id] - Unique identifier of the business connection on behalf of which the message will be sent. Bot can send rich messages on behalf of a business account only if the corresponding user can send rich messages.
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} [params.chat_id] - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username; required unless the message is sent as an ephemeral reply to a callback query
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {EphemeralMessageParameters} [params.ephemeral_message_parameters] - A JSON-serialized object containing the parameters of the ephemeral message to send
@@ -1884,7 +1981,7 @@ const answerInlineQuery = tg("answerInlineQuery");
 /**
  * Use this method to send invoices. On success, the sent Message is returned.
  * @param {Object} params
- * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username
+ * @param {number|string} params.chat_id - Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format @username
  * @param {number} [params.message_thread_id] - Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
  * @param {number} [params.direct_messages_topic_id] - Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
  * @param {string} params.title - Product name, 1-32 characters
@@ -2068,6 +2165,8 @@ module.exports = {
   sendAnimation,
   sendVoice,
   sendVideoNote,
+  sendWidget,
+  sendSharedWidget,
   sendPaidMedia,
   sendMediaGroup,
   sendLocation,
@@ -2114,6 +2213,7 @@ module.exports = {
   getChatAdministrators,
   getChatMemberCount,
   getChatMember,
+  getChatShareThemeBackdrops,
   getUserPersonalChatMessages,
   setChatStickerSet,
   deleteChatStickerSet,
@@ -2131,6 +2231,7 @@ module.exports = {
   unhideGeneralForumTopic,
   unpinAllGeneralForumTopicMessages,
   answerCallbackQuery,
+  answerWidgetQuery,
   answerGuestQuery,
   getUserChatBoosts,
   getBusinessConnection,
@@ -2173,9 +2274,11 @@ module.exports = {
   getBusinessAccountGifts,
   getUserGifts,
   getChatGifts,
+  getUniqueGift,
   convertGiftToStars,
   upgradeGift,
   transferGift,
+  deleteBusinessAccountGift,
   postStory,
   repostStory,
   editStory,
@@ -2189,6 +2292,8 @@ module.exports = {
   editMessageLiveLocation,
   stopMessageLiveLocation,
   editMessageChecklist,
+  editMessageWidgetData,
+  editSharedWidgetData,
   editMessageReplyMarkup,
   stopPoll,
   editEphemeralMessageText,
