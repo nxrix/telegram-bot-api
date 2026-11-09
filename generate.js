@@ -138,7 +138,7 @@ const fileUrl = (filePath) => \`\${api}/file/bot\${botToken}/\${filePath}\`;
   for (const [name, content] of Object.entries(files)) {
     fs.writeFileSync(path.join(OUT, name), content);
   }
-  console.log(`Wrote ${methods.length} methods to ${Object.keys(files).map((n) => path.join(DIR, n)).join(", ")}`);
+  console.log(`Wrote ${methods.length} methods to ${Object.keys(files).map((n) => path.join(OUT, n)).join(", ")}`);
 }
 
 main().catch((e) => {
